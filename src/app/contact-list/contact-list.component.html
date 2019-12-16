@@ -1,0 +1,42 @@
+<div class="container" style="margin-top: 70px;">
+  <button (click)="generatePdf()">Open PDF</button>
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Title</th>
+          <th>First Name</th>
+          <th>Last Name</th>
+          <th>Phone</th>
+          <th>Email</th>
+          <th>Company/th>
+          <th>Address</th>
+          <th>City</th>
+          <th>Country</th>
+          <th>State</th>
+          <th>Post Code</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let contact of contacts$  | async">
+          <td> {{ contact.id }} </td>
+          <td> {{ contact.title}}</td>
+          <td> {{ contact.first_name }}</td>
+          <td> {{ contact.last_name }}</td>
+          <td> {{ contact.phone }}</td>
+          <td> {{ contact.email }}</td>
+          <td> {{ contact.company }}</td>
+          <td> {{ contact.address }}</td>
+          <td> {{ contact.city}}</td>
+          <td> {{ contact.country }}</td>
+          <td> {{ contact.state}}</td>
+          <td> {{ contact.post_code }}</td>
+          <td>
+            <button class="btn btn-primary" (click)="selectContact(contact)"><fa-icon [icon]="faPencil"></fa-icon></button>
+            <button class="btn btn-primary" (click)="deleteContact(contact)"><fa-icon [icon]="faTrash"></fa-icon></button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  
