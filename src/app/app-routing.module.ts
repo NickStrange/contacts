@@ -5,11 +5,12 @@ import { ContactCreateComponent } from './contact-create/contact-create.componen
 import { ContactListComponent } from './contact-list/contact-list.component';
 import { PrintComponent } from './print/print.component';
 import { FilesComponent } from './files/files.component';
+import { LoginComponent } from './login/login.component';
 
 
 const routes: Routes = [
   {path:  "", pathMatch:  "full",redirectTo:  "home"},
-  {path: "home", component: HomeComponent},
+  {path: "home", component: LoginComponent},
   {path: "contact-create", 
       children: [
         {

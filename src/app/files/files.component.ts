@@ -1,7 +1,7 @@
 import { Component, ViewChild } from '@angular/core';  
-import { Contact } from '../contact';
+import { Contact } from '../model/contact';
 import { ContactListComponent } from '../contact-list/contact-list.component';
-import { ContactService } from '../contact.service';
+import { ContactService } from '../services/contact.service';
 
 @Component({  
   selector: 'app-filest',  

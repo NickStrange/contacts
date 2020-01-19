@@ -9,7 +9,7 @@
           <th>Last Name</th>
           <th>Phone</th>
           <th>Email</th>
-          <th>Company/th>
+          <th>Company</th>
           <th>Address</th>
           <th>City</th>
           <th>Country</th>
@@ -18,7 +18,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let contact of contacts$  | async">
+        <tr *ngFor="let contact of contactService.contacts$| async">
           <td> {{ contact.id }} </td>
           <td> {{ contact.title}}</td>
           <td> {{ contact.first_name }}</td>
