@@ -2,6 +2,8 @@ import { Component, ViewChild } from '@angular/core';
 import { Contact } from '../model/contact';
 import { ContactListComponent } from '../contact-list/contact-list.component';
 import { ContactService } from '../services/contact.service';
+import { AngularCsv } from 'angular7-csv';
+
 
 @Component({  
   selector: 'app-filest',  
@@ -14,6 +16,13 @@ export class FilesComponent {
   constructor(private dataService: ContactService) { }
 
   ngOnInit() {
+  }
+  
+  writeCsv(){
+    this.dataService.contacts$.subscribe(contacts=>{
+       new AngularCsv(JSON.parse(JSON.stringify(contacts)), 'Contacts');
+      console.log('SAVED', JSON.parse(JSON.stringify(contacts)));
+    })
   }
   
   public records: any[] = [];  

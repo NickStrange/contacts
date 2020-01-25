@@ -2,7 +2,7 @@
 <p></p>
 <p></p>
 TOPPPPPPPPPPPPPPPP<p></p>
-
+<button (click)="writeCsv()">Save Local File</button>
 <input type="file" #csvReader name="Upload CSV" id="txtFileUpload" (change)="uploadListener($event)" accept=".csv" />    
 <table class="minimalistBlack" *ngIf="records.length > 0">    
   <thead>    

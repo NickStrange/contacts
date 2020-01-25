@@ -4,6 +4,7 @@ import { Contact } from '../model/contact';
 import { Router, ActivatedRoute } from '@angular/router';
 import { MatDialog, MatDialogConfig } from '@angular/material';
 import { DialogComponent } from '../dialog/dialog.component'; 
+import { LoginComponent } from '../login/login.component';
 
 @Component({
   selector: 'app-contact-create',

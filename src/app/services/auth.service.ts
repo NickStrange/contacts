@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, NgZone } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import * as firebaseui from 'firebaseui';
 import * as firebase from 'firebase/app';
@@ -6,6 +6,7 @@ import { Observable, Subscriber } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { User } from '../model/user';
+import { Router } from '@angular/router';
 
 
 @Injectable({
@@ -18,7 +19,8 @@ export class AuthService {
   isAdmin$: Observable<boolean>;
   userId$: Observable<string>;
 
-  constructor(private afAuth: AngularFireAuth, private db: AngularFirestore) { }
+  constructor(private afAuth: AngularFireAuth, private db: AngularFirestore,
+    private router:Router, private ngZone: NgZone) { }
 
   logIn(){
     const uiConfig = {
@@ -60,7 +62,7 @@ export class AuthService {
 
   onLoginSuccessful(result){
     console.log(result);
-    // this.ngZone.run(() => this.router.navigateByUrl('/contacts'));
+    this.ngZone.run(() => this.router.navigateByUrl('/contact-list'));
   }
 
   logOut() {

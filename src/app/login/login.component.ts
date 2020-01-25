@@ -32,7 +32,9 @@ export class LoginComponent implements OnInit{
     this.isLoggedOut$ = this.afAuth.isLoggedOut$
     this.userId$ = this.afAuth.userId$;
     this.isAdmin$ = this.afAuth.isAdmin$;
+    this.isLoggedIn$.subscribe(loggedIn => {if (!loggedIn) {this.logIn()}})
    }
+
 
   logOut() {
       this.afAuth.logOut();
@@ -42,9 +44,4 @@ export class LoginComponent implements OnInit{
     this.afAuth.logIn();  
   }
 
-  onLoginSuccessful(result){
-    console.log(result);
-    // this.ngZone.run(() => this.router.navigateByUrl('/contacts'));
-
-  }
 }
