@@ -24,7 +24,7 @@ export class ContactListComponent implements OnInit {
   contacts: Contact[];
   selectedContact: Contact;
 
-  constructor(private contactService: ContactService, private router:Router) { }
+  constructor(public contactService: ContactService, private router:Router) { }
 
   ngOnInit() {
     this.contactService.doContacts();

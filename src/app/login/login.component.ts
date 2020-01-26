@@ -3,7 +3,7 @@ import * as firebaseui from 'firebaseui';
 import * as firebase from 'firebase/app';
 import {AngularFireAuth} from '@angular/fire/auth';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Observable, Subscriber } from 'rxjs';
 import { AuthService } from '../services/auth.service';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { User } from '../model/user';
@@ -15,33 +15,43 @@ import { map } from 'rxjs/operators';
   styleUrls: ['./login.component.css']
 })
 
-export class LoginComponent implements OnInit{
+export class LoginComponent implements OnInit {
 
-  isLoggedIn$: Observable<boolean>;
-  isLoggedOut$: Observable<boolean>;
-  isAdmin$: Observable<boolean>;
-  userId$: Observable<string>;
+    ui: firebaseui.auth.AuthUI;
 
+    constructor(private afAuth: AngularFireAuth, private db: AngularFirestore,
+      private router:Router, private ngZone: NgZone, private authService: AuthService) { }
+  
+    ngOnInit() {
+      console.log('new ui');
+      this.ui = firebaseui.auth.AuthUI.getInstance() || new firebaseui.auth.AuthUI(this.afAuth.auth);
+      this.authService.setui(this.ui);
+      this.logIn();
+      }  
 
-  constructor(public afAuth: AuthService, 
-              private router:Router,
-              private ngZone: NgZone) { }
-
-  ngOnInit() {
-    this.isLoggedIn$ = this.afAuth.isLoggedIn$
-    this.isLoggedOut$ = this.afAuth.isLoggedOut$
-    this.userId$ = this.afAuth.userId$;
-    this.isAdmin$ = this.afAuth.isAdmin$;
-    this.isLoggedIn$.subscribe(loggedIn => {if (!loggedIn) {this.logIn()}})
-   }
-
-
-  logOut() {
-      this.afAuth.logOut();
+    logIn(){
+      const uiConfig = {
+        signInOptions: [
+            firebase.auth.EmailAuthProvider.PROVIDER_ID
+        ],
+        callbacks: {
+  
+            signInSuccessWithAuthResult: this
+                .onLoginSuccessful
+                .bind(this)
+         }
+      };
+  
+      this.ui.start('#firfebaseui-auth-container', uiConfig);
+      this.authService.login();
+     }
+  
+    onLoginSuccessful(result){
+      console.log(result);
+      this.ngZone.run(() => this.router.navigateByUrl('/contact-list'));
     }
-
-  logIn(){
-    this.afAuth.logIn();  
-  }
-
+  
+    logOut() {
+      this.authService.logOut();
+    }
 }

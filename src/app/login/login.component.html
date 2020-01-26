@@ -2,6 +2,7 @@
 <p>xxxx</p>
 <p>xxxx</p>
 <p>xxxx</p>
+just above auth container
 <div id="firfebaseui-auth-container" class="auth-container">
 </div>
 
@@ -11,9 +12,9 @@
 <div>user id async {{userId$ | async}}</div>
 <div>admin {{isAdmin$ | async}}</div>
 
-<div *ngIf="isLoggedIn$ | async">
+<div >
     <button (click)="logOut()">log out</button>
 </div>
-<div *ngIf="isLoggedOut$ | async">
+<div>
     <button (click)="logIn()">log in</button>
 </div>

@@ -1,4 +1,4 @@
-import { Injectable, NgZone } from '@angular/core';
+import { Injectable, NgZone, OnInit } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import * as firebaseui from 'firebaseui';
 import * as firebase from 'firebase/app';
@@ -22,22 +22,8 @@ export class AuthService {
   constructor(private afAuth: AngularFireAuth, private db: AngularFirestore,
     private router:Router, private ngZone: NgZone) { }
 
-  logIn(){
-    const uiConfig = {
-      signInOptions: [
-          firebase.auth.EmailAuthProvider.PROVIDER_ID
-      ],
-      callbacks: {
 
-          signInSuccessWithAuthResult: this
-              .onLoginSuccessful
-              .bind(this)
-      }
-
-  };
-
-    this.ui = new firebaseui.auth.AuthUI(this.afAuth.auth);
-    this.ui.start('#firfebaseui-auth-container', uiConfig);
+  login() {
     this.isLoggedIn$ = this.afAuth.authState.pipe(map(user => !!user));
     this.userId$ = this.afAuth.authState.pipe(map(user => user? user.uid: null));
     this.isLoggedOut$ = this.isLoggedIn$.pipe(map(loggedIn => !loggedIn));
@@ -55,18 +41,17 @@ export class AuthService {
       });
    }
 
+   setui(ui){
+     this.ui = ui;
+   }
+
 
   ngOnDestroy(){
     this.ui.delete();
   }
 
-  onLoginSuccessful(result){
-    console.log(result);
-    this.ngZone.run(() => this.router.navigateByUrl('/contact-list'));
-  }
-
   logOut() {
     this.afAuth.auth.signOut();
-    this.ui.delete();
+ //  this.ui.delete();
   }
 }

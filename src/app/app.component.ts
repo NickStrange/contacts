@@ -17,10 +17,5 @@ export class AppComponent {
   }
 
   ngOnInit(){
-    this.afAuth.logIn();
-  }
-
-  logout(){
-    this.afAuth.logOut();
   }
 }
