@@ -3,6 +3,7 @@ import { Contact } from '../model/contact';
 import { Observable, Subscriber, from, onErrorResumeNext } from 'rxjs';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { map} from 'rxjs/operators';
+import { ContactListComponent } from '../contact-list/contact-list.component';
 
 
 
@@ -85,5 +86,15 @@ export class ContactService{
       res.push(contact.country)
       yield(res);
     }
+  }
+
+  nextId():number{
+    let next = 0
+    for (let contact of this.contacts){
+      if (contact.id > next) {
+        next = contact.id;
+      }  
+    } 
+    return next + 1;
   }
 }

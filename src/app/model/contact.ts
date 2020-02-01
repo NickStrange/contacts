@@ -27,4 +27,8 @@ export class Contact {
         // test if string is in the contact
         return this.toString().includes(search);
     }
+
+    short():string{
+        return `{this.id} {this.title} {this.first_name} {this.last_name}`
+    }
     }

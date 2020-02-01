@@ -6,10 +6,8 @@ import { AppComponent } from "./app.component";
 import { ContactCreateComponent } from "./contact-create/contact-create.component";
 import { ContactListComponent } from "./contact-list/contact-list.component";
 import { HeaderComponent } from "./header/header.component";
-import { FooterComponent } from "./footer/footer.component";
 import { FormsModule } from "@angular/forms";
 import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
-import { PrintComponent } from "./print/print.component";
 import { FilesComponent } from './files/files.component';
 import {AngularFireModule} from '@angular/fire';
 import { environment } from '../environments/environment';
@@ -32,8 +30,6 @@ import { MatDialogModule, MatFormFieldModule } from '@angular/material';
     ContactCreateComponent,
     ContactListComponent,
     HeaderComponent,
-    FooterComponent,
-    PrintComponent,
     FilesComponent,
     LoginComponent,
     DialogComponent,

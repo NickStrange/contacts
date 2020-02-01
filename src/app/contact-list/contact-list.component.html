@@ -19,21 +19,23 @@
       </thead>
       <tbody>
         <tr *ngFor="let contact of contactService.contacts$| async">
-          <td> {{ contact.id }} </td>
-          <td> {{ contact.title}}</td>
-          <td> {{ contact.first_name }}</td>
-          <td> {{ contact.last_name }}</td>
-          <td> {{ contact.phone }}</td>
-          <td> {{ contact.email }}</td>
-          <td> {{ contact.company }}</td>
-          <td> {{ contact.address }}</td>
-          <td> {{ contact.city}}</td>
-          <td> {{ contact.country }}</td>
-          <td> {{ contact.state}}</td>
-          <td> {{ contact.post_code }}</td>
+          <td nowrap> {{ contact.id }} </td>
+          <td nowrap> {{ contact.title}}</td>
+          <td nowrap> {{ contact.first_name }}</td>
+          <td nowrap> {{ contact.last_name }}</td>
+          <td nowrap> {{ contact.phone }}</td>
+          <td nowrap> {{ contact.email }}</td>
+          <td nowrap> {{ contact.company }}</td>
+          <td nowrap> {{ contact.address }}</td>
+          <td nowrap> {{ contact.city}}</td>
+          <td nowrap> {{ contact.country }}</td>
+          <td nowrap> {{ contact.state}}</td>
+          <td nowrap> {{ contact.post_code }}</td>
           <td>
-            <button class="btn btn-primary" (click)="selectContact(contact)"><fa-icon [icon]="faPencil"></fa-icon></button>
-            <button class="btn btn-primary" (click)="deleteContact(contact)"><fa-icon [icon]="faTrash"></fa-icon></button>
+            <div class="btn-group">
+              <button class="btn btn-primary" (click)="selectContact(contact)"><fa-icon [icon]="faPencil"></fa-icon></button>
+              <button class="btn btn-primary" (click)="deleteContact(contact)"><fa-icon [icon]="faTrash"></fa-icon></button>
+            </div>  
           </td>
         </tr>
       </tbody>

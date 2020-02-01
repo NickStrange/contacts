@@ -16,6 +16,7 @@ export class ContactCreateComponent implements OnInit {
   contact: Contact;
   id : number;
   isInsert: boolean;
+  label: string;
 
   constructor(public dataService: ContactService, private router:Router, 
     private route:ActivatedRoute, private dialog: MatDialog) { }
@@ -25,10 +26,12 @@ export class ContactCreateComponent implements OnInit {
     this.isInsert = this.id == undefined;
     console.log('PASSED insert', this.isInsert);
     if (this.isInsert) {
-      this.contact = new Contact(3, "", "", "", "", "", "", "", "", "", "", "");
+      this.label = 'Create';
+      this.contact = new Contact(this.dataService.nextId(), "", "", "", "", "", "", "", "", "", "", "");
       console.log('create new empty contact ', this.contact);
     }
     else {
+      this.label = 'Update';
       this.contact = this.dataService.getContact(this.id);
       console.log('in update', this.contact);
     }
@@ -52,6 +55,10 @@ export class ContactCreateComponent implements OnInit {
       this.dataService.updateContact(this.contact)
           .subscribe(val => console.log('update contact', val), 
               err => this.openDialog(err))}
+    this.router.navigateByUrl('/contact-list');
+  }
+
+  cancel(){
     this.router.navigateByUrl('/contact-list');
   }
 }
