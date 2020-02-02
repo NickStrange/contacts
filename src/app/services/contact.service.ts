@@ -110,4 +110,32 @@ export class ContactService{
     } 
     return next + 1;
   }
+
+
+    //  sort cotacts up or down
+    sortContacts(field, down) {
+      let direction = down ? 1 : -1;
+      let contactArr = [];
+  //sort array
+      if (field !== "id") {
+        this.contacts = this.contacts.sort(function(a, b) {
+      // both null - sort by contactId or if both the same
+         if (a[field] === "" && b[field] === "")
+            return (b.id - a.id) * direction;
+      if (a[field] == b[field]) return (b.id - a.id) * direction;
+      if (a[field] === "") return 1;
+      if (b[field] === "") return -1;
+      if (a[field].toLowerCase() < b[field].toLowerCase())
+        return -1 * direction;
+      if (a[field].toLowerCase() > b[field].toLowerCase()) return 1 * direction;
+      return 0;
+    });
+  } else {
+    this.contacts = this.contacts.sort(function(a, b) {
+      return (b.id - a.id) * direction;
+    });
+  }
+}
+
+
 }

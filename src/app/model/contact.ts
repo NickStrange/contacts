@@ -32,7 +32,4 @@ export class Contact {
         return `${this.id} ${this.title} ${this.first_name} ${this.last_name}`
     }
 
-    testFunction(){
-        return ("in test fn");
-    }
-    }
+}

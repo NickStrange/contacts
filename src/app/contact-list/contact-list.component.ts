@@ -62,6 +62,7 @@ export class ContactListComponent implements OnInit {
 
   sort(direction:boolean, field:String){
     console.log('Sort ', field, direction);
+    this.contactService.sortContacts(field, direction)
   }
 }
 
