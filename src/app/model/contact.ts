@@ -17,6 +17,7 @@ export class Contact {
     }
     
     toString(){
+        console.log("IN TO STRING");
         return this.id + " " + this.title + " " + this.first_name +
         " " + this.last_name + " " + this.phone + " " + this.email + 
         " " + this.company + " " + this.address + " " + this.city  + 
@@ -28,7 +29,11 @@ export class Contact {
         return this.toString().includes(search);
     }
 
-    short():string{
-        return `{this.id} {this.title} {this.first_name} {this.last_name}`
+    shortName(){
+        return `${this.id} ${this.title} ${this.first_name} ${this.last_name}`
+    }
+
+    testFunction(){
+        return ("in test fn");
     }
     }

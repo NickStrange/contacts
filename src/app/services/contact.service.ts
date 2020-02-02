@@ -4,6 +4,7 @@ import { Observable, Subscriber, from, onErrorResumeNext } from 'rxjs';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { map} from 'rxjs/operators';
 import { ContactListComponent } from '../contact-list/contact-list.component';
+import { conditionallyCreateMapObjectLiteral } from '@angular/compiler/src/render3/view/util';
 
 
 
@@ -37,12 +38,24 @@ export class ContactService{
     return this.db.collection('contacts').snapshotChanges()  
         .pipe(map(snaps => {
             return snaps.map(snap=>{
-              console.log('load contentes', snap);
               let contact = snap.payload.doc.data() as Contact
-              return <Contact> {
-                  id: snap.payload.doc.id,
-                  ...contact
-        };
+              //return <Contact> {
+              //    id: snap.payload.doc.id,
+              //    ...contact
+              //    };
+              return new Contact(
+                parseInt(snap.payload.doc.id), 
+                contact.title,
+                contact.first_name, 
+                contact.last_name, 
+                contact.phone, 
+                contact.email,
+                contact.company,
+                contact.address,
+                contact.city,
+                contact.country,
+                contact.state,
+                contact.post_code);        
       });
      }
     ));

@@ -2,9 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ContactService } from '../services/contact.service';
 import { Contact } from '../model/contact';
 import { Router, ActivatedRoute } from '@angular/router';
-import { MatDialog, MatDialogConfig } from '@angular/material';
-import { DialogComponent } from '../dialog/dialog.component'; 
-import { LoginComponent } from '../login/login.component';
+import { MatDialog} from '@angular/material';
+import { DialogService } from '../services/dialog.service';
 
 @Component({
   selector: 'app-contact-create',
@@ -19,7 +18,8 @@ export class ContactCreateComponent implements OnInit {
   label: string;
 
   constructor(public dataService: ContactService, private router:Router, 
-    private route:ActivatedRoute, private dialog: MatDialog) { }
+    private route:ActivatedRoute, private dialog: MatDialog,
+    private dialogService: DialogService) { }
 
   ngOnInit() {
     this.id = this.route.snapshot.params['id'];
@@ -37,24 +37,15 @@ export class ContactCreateComponent implements OnInit {
     }
   }
 
-  openDialog(msg: String)  {
-    const dialogConfig = new MatDialogConfig();
-    dialogConfig.disableClose = true;
-    dialogConfig.autoFocus = true;
-    dialogConfig.data = { description:"Error:", name: msg, label1:"close"};
-    let dialogRef= this.dialog.open(DialogComponent, dialogConfig);
-    dialogRef.afterClosed().subscribe (result => console.log(`dialog result: ${result}`))
-  }
-
   createContact(){
     if (this.isInsert){
       this.dataService.createContact(this.contact)
           .subscribe(val => console.log('create contact', val), 
-              err => this.openDialog(err))}
+              err => this.dialogService.openDialog('Error', err, 'close', ''))}
     else {
       this.dataService.updateContact(this.contact)
           .subscribe(val => console.log('update contact', val), 
-              err => this.openDialog(err))}
+              err => this.dialogService.openDialog("Error", err, 'close',''))}
     this.router.navigateByUrl('/contact-list');
   }
 

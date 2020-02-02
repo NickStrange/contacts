@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 import pdfMake from 'pdfmake/build/pdfmake';
 import pdfFonts from 'pdfmake/build/vfs_fonts';
 import { PrintLabelComponent } from '../print-label-component';
+import { DialogService } from '../services/dialog.service';
 
 
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
@@ -24,7 +25,8 @@ export class ContactListComponent implements OnInit {
   contacts: Contact[];
   selectedContact: Contact;
 
-  constructor(public contactService: ContactService, private router:Router) { }
+  constructor(public contactService: ContactService, private router:Router,
+              private dialogService: DialogService) { }
 
   ngOnInit() {
     this.contactService.doContacts();
@@ -32,14 +34,18 @@ export class ContactListComponent implements OnInit {
   }
 
   public selectContact(contact: Contact){
-    console.log('selected id', contact.id);
     this.router.navigateByUrl(`contact-create/${contact.id}`);
     this.selectedContact = contact;
   }
 
   public deleteContact(contact: Contact){
-    this.contactService.deleteContact(contact.id)
-    .subscribe(val => console.log('update contact', val), err => console.log('ERROR ', err))
+    this.dialogService.openDialog('Delete', contact.shortName(), 'No', 'Yes').subscribe(
+        deleteflg => {
+          if (deleteflg) {
+            this.contactService.deleteContact(contact.id).subscribe(val => console.log('update contact', val), err => console.log('ERROR ', err))
+          }
+       }
+    );
   }
 
   generatePdf() {

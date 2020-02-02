@@ -3,6 +3,7 @@
     <table class="table table-hover">
       <thead>
         <tr>
+          <th></th>
           <th>#</th>
           <th>Title</th>
           <th>First Name</th>
@@ -19,6 +20,12 @@
       </thead>
       <tbody>
         <tr *ngFor="let contact of contactService.contacts$| async">
+          <td>
+            <div class="btn-group">
+              <button class="btn btn-primary" (click)="selectContact(contact)"><fa-icon [icon]="faPencil"></fa-icon></button>
+              <button class="btn btn-primary" (click)="deleteContact(contact)"><fa-icon [icon]="faTrash"></fa-icon></button>
+            </div>  
+          </td>
           <td nowrap> {{ contact.id }} </td>
           <td nowrap> {{ contact.title}}</td>
           <td nowrap> {{ contact.first_name }}</td>
