@@ -1,10 +1,10 @@
 <div style="margin-top: 100px;">
-<div class="container">
+<div class="container title">
   <button class="btn btn-primary" (click)="writeCsv()">Save Local File</button>
   &nbsp;
   <label>File Name
     <input [(ngModel)]="fileName" type="text" name="fileName"> 
-    </label>
+  </label>
   &nbsp;
   <input class="btn btn-primary"  type="file" #csvReader name="Upload CSV" id="txtFileUpload" (change)="uploadListener($event)" accept=".csv" />    
 </div>

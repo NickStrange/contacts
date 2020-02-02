@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ContactService } from '../services/contact.service';
 import { Contact } from '../model/contact';
 import { Observable } from 'rxjs';
-import { faPencilAlt, faTrash} from '@fortawesome/free-solid-svg-icons'
+import { faPencilAlt, faTrash, faChevronCircleUp, faChevronCircleDown} from '@fortawesome/free-solid-svg-icons'
 import { Router } from '@angular/router';
 import pdfMake from 'pdfmake/build/pdfmake';
 import pdfFonts from 'pdfmake/build/vfs_fonts';
@@ -21,6 +21,9 @@ pdfMake.vfs = pdfFonts.pdfMake.vfs;
 export class ContactListComponent implements OnInit {
   faPencil = faPencilAlt;
   faTrash = faTrash;
+  faChevronUp = faChevronCircleUp;
+  faChevronDown = faChevronCircleDown;
+  searchText : String='';
 
   contacts: Contact[];
   selectedContact: Contact;
@@ -51,6 +54,14 @@ export class ContactListComponent implements OnInit {
   generatePdf() {
     let printLabel = new PrintLabelComponent(this.contactService.labelgenerator());
     printLabel.generatePdf();
+  }
+
+  clearSearch(){
+    this.searchText='';
+  }
+
+  sort(direction:boolean, field:String){
+    console.log('Sort ', field, direction);
   }
 }
 
