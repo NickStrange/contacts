@@ -8,7 +8,7 @@ import { AuthService } from './services/auth.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'angular-bootstrap-demo';
+  title = 'Foundation Contacts';
   faPencil = faPencilAlt;
   faTrash = faTrash;
 

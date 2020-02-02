@@ -3,6 +3,9 @@ import { Contact } from '../model/contact';
 import { ContactListComponent } from '../contact-list/contact-list.component';
 import { ContactService } from '../services/contact.service';
 import { AngularCsv } from 'angular7-csv';
+import { formatDate } from '@angular/common';
+import { DialogService } from '../services/dialog.service';
+import { trimTrailingNulls } from '@angular/compiler/src/render3/view/util';
 
 
 @Component({  
@@ -13,16 +16,24 @@ import { AngularCsv } from 'angular7-csv';
   
 export class FilesComponent {  
 
-  constructor(private dataService: ContactService) { }
+  constructor(private dataService: ContactService, 
+    private dialogService:DialogService) { }
+  fileName = "Contacts"
 
   ngOnInit() {
+    this.fileName="Contacts"+formatDate(new Date(), 'yyyy-MM-dd', 'en');
   }
   
   writeCsv(){
+    if (!this.fileName.trim()){
+    this.dialogService.openDialog('Error', 'Enter FileName', 'close', '')
+    this.fileName="Contacts"+formatDate(new Date(), 'yyyy-MM-dd', 'en'); 
+  }
+    else {
     this.dataService.contacts$.subscribe(contacts=>{
-       new AngularCsv(JSON.parse(JSON.stringify(contacts)), 'Contacts');
-      console.log('SAVED', JSON.parse(JSON.stringify(contacts)));
-    })
+       new AngularCsv(JSON.parse(JSON.stringify(contacts)), this.fileName);
+         })
+    }
   }
   
   public records: any[] = [];  
