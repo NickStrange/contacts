@@ -25,11 +25,15 @@ export class Contact {
     
     includes_string(search: string){
         // test if string is in the contact
-        return this.toString().includes(search);
+        return this.toString().toLowerCase().includes(search.toLowerCase());
     }
 
     shortName(){
         return `${this.id} ${this.title} ${this.first_name} ${this.last_name}`
+    }
+
+    is_valid_address(){
+        return this.address != '';
     }
 
 }

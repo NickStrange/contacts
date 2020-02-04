@@ -6,6 +6,8 @@ import { AngularCsv } from 'angular7-csv';
 import { formatDate } from '@angular/common';
 import { DialogService } from '../services/dialog.service';
 import { trimTrailingNulls } from '@angular/compiler/src/render3/view/util';
+import { AuthService } from '../services/auth.service';
+import { Observable } from 'rxjs';
 
 
 @Component({  
@@ -17,11 +19,14 @@ import { trimTrailingNulls } from '@angular/compiler/src/render3/view/util';
 export class FilesComponent {  
 
   constructor(private dataService: ContactService, 
-    private dialogService:DialogService) { }
+    private dialogService:DialogService,
+    private authService: AuthService) { }
   fileName = "Contacts"
+  isAdmin$ :Observable<boolean>;
 
   ngOnInit() {
     this.fileName="Contacts"+formatDate(new Date(), 'yyyy-MM-dd', 'en');
+    this.isAdmin$ = this.authService.isAdmin$;
   }
   
   writeCsv(){

@@ -91,13 +91,15 @@ export class ContactService{
 
   *labelgenerator(){
     for (let contact of this.contacts) {
-      let res = []
-      res.push(contact.title + ' ' + contact.first_name + ' ' + contact.last_name);
-      res.push(contact.address);
-      res.push(contact.city);
-      res.push(contact.state+ ' ' + contact.post_code);
-      res.push(contact.country)
-      yield(res);
+      if (contact.is_valid_address()){
+        let res = []
+        res.push(contact.title + ' ' + contact.first_name + ' ' + contact.last_name);
+        res.push(contact.address);
+        res.push(contact.city);
+        res.push(contact.state+ ' ' + contact.post_code);
+        res.push(contact.country)
+        yield(res);
+      }
     }
   }
 
